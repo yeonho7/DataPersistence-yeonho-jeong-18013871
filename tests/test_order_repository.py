@@ -80,6 +80,15 @@ def test_repository_find_by_status(repo):
     assert len(results) == 2
 
 
+def test_repository_update_not_found_returns_false(repo):
+    o = Order(order_id="ORD-999", sample_id="S-001", customer="없음", quantity=1)
+    assert repo.update(o) is False
+
+
+def test_repository_delete_not_found_returns_false(repo):
+    assert repo.delete("ORD-999") is False
+
+
 def test_repository_persistence_across_instances():
     repo1 = OrderRepository(TEST_FILE)
     repo1.create(Order(order_id="ORD-001", sample_id="S-001", customer="고객A", quantity=10))

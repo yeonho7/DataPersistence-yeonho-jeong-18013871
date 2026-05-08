@@ -68,6 +68,15 @@ def test_repository_find_by_name_partial_match(repo):
     assert results[0].sample_id == "S-001"
 
 
+def test_repository_update_not_found_returns_false(repo):
+    s = Sample(sample_id="S-999", name="없음", avg_production_time=1.0, yield_rate=0.5)
+    assert repo.update(s) is False
+
+
+def test_repository_delete_not_found_returns_false(repo):
+    assert repo.delete("S-999") is False
+
+
 def test_repository_persistence_across_instances():
     repo1 = SampleRepository(TEST_FILE)
     repo1.create(Sample(sample_id="S-001", name="알파", avg_production_time=5.0, yield_rate=0.9))
