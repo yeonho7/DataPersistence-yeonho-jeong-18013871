@@ -48,6 +48,15 @@ def test_delete(repo):
     assert repo.find_by_id("JOB-0001") is None
 
 
+def test_update_not_found_returns_false(repo):
+    job = ProductionJob(job_id="JOB-9999", order_id="ORD-999", actual_production_qty=0, estimated_time_min=0, queue_position=0)
+    assert repo.update(job) is False
+
+
+def test_delete_not_found_returns_false(repo):
+    assert repo.delete("JOB-9999") is False
+
+
 def test_persistence_across_instances():
     repo1 = ProductionJobRepository(TEST_FILE)
     repo1.create(ProductionJob(job_id="JOB-0001", order_id="ORD-001", actual_production_qty=100, estimated_time_min=50, queue_position=1))
