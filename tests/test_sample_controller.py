@@ -76,3 +76,18 @@ def test_stock_status_부족(ctrl):
 def test_stock_status_고갈(ctrl):
     ctrl.register("S-001", "알파", 5.0, 0.9, stock=0)
     assert ctrl.get_stock_status("S-001", order_quantity=30) == "고갈"
+
+
+def test_stock_status_not_found_raises(ctrl):
+    with pytest.raises(ValueError, match="존재하지 않는"):
+        ctrl.get_stock_status("S-999", order_quantity=10)
+
+
+def test_calculate_production_quantity_not_found_raises(ctrl):
+    with pytest.raises(ValueError, match="존재하지 않는"):
+        ctrl.calculate_production_quantity("S-999", order_quantity=10)
+
+
+def test_calculate_production_quantity_stock_sufficient(ctrl):
+    ctrl.register("S-001", "알파", 5.0, 0.9, stock=50)
+    assert ctrl.calculate_production_quantity("S-001", order_quantity=30) == 0
