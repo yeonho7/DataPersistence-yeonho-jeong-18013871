@@ -6,25 +6,6 @@ JSON 파일 기반 write-through 방식으로 `Sample`·`Order` 데이터를 저
 
 ---
 
-## 환경 설정
-
-**요구사항:** Python 3.10 이상
-
-```bash
-# 가상환경 생성 및 활성화
-python -m venv .venv
-
-# Windows
-.venv\Scripts\activate
-# macOS / Linux
-source .venv/bin/activate
-
-# 의존성 설치
-pip install -r requirements.txt
-```
-
----
-
 ## 빠른 시작
 
 ### 실행
@@ -51,15 +32,6 @@ python main.py
 [INFO] 이미 존재하는 시료 ID: S-003
 ```
 
-### 테스트
-
-```bash
-python -m pytest tests/ -v
-```
-
-32개 테스트가 전부 통과해야 한다.
-
----
 
 ## 아키텍처
 
