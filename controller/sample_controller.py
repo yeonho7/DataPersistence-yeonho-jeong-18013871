@@ -27,6 +27,16 @@ class SampleController:
         s.stock = stock
         self._repo.update(s)
 
+    def get_stock_status(self, sample_id: str, order_quantity: int) -> str:
+        s = self._repo.find_by_id(sample_id)
+        if s is None:
+            raise ValueError(f"존재하지 않는 시료 ID: {sample_id}")
+        if s.stock == 0:
+            return "고갈"
+        if s.stock < order_quantity:
+            return "부족"
+        return "여유"
+
     def calculate_production_quantity(self, sample_id: str, order_quantity: int) -> int:
         s = self._repo.find_by_id(sample_id)
         if s is None:

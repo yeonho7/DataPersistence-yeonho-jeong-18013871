@@ -61,3 +61,18 @@ def test_calculate_production_quantity(ctrl):
     shortage = 20 - 10
     expected = math.ceil(shortage / (0.9 * 0.9))
     assert qty == expected
+
+
+def test_stock_status_여유(ctrl):
+    ctrl.register("S-001", "알파", 5.0, 0.9, stock=50)
+    assert ctrl.get_stock_status("S-001", order_quantity=30) == "여유"
+
+
+def test_stock_status_부족(ctrl):
+    ctrl.register("S-001", "알파", 5.0, 0.9, stock=10)
+    assert ctrl.get_stock_status("S-001", order_quantity=30) == "부족"
+
+
+def test_stock_status_고갈(ctrl):
+    ctrl.register("S-001", "알파", 5.0, 0.9, stock=0)
+    assert ctrl.get_stock_status("S-001", order_quantity=30) == "고갈"

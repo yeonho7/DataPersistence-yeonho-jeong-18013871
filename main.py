@@ -40,3 +40,12 @@ view.show_orders(order_ctrl.list_all())
 # 생산량 계산 (S-003, 주문 20개, 재고 0)
 qty = sample_ctrl.calculate_production_quantity("S-003", order_quantity=20)
 view.show_message(f"S-003 생산 필요량: {qty}개 (주문 20개, 재고 0개, 수율 0.75)")
+
+# 시나리오 3: 재고 수정 → 재시작 후 확인 (FR-05)
+sample_ctrl.update_stock("S-002", 100)
+view.show_message("S-002 재고 수정: 100개")
+status = sample_ctrl.get_stock_status("S-002", order_quantity=30)
+view.show_message(f"S-002 재고 상태: {status} (재고 100개, 주문 30개)")
+
+print("\n[최종 시료 목록]")
+view.show_samples(sample_ctrl.list_all())
